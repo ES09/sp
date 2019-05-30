@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.osf.sp.mapper.DepartmentMapper">
+	<select id="selectDepartmentList" resultType="department">
+		select * from department 
+	</select> 
+		
+	<select id="selectDepartmentByCode" resultType="department" parameterType="department">
+		select * from department where department_code =#{departmentCode}
+	</select>
+	
+	<insert id="insertDepartment" parameterType="department">
+		insert into department
+		(DEPARTMENT_CODE, DEPARTMENT_NAME, DEPARTMENT_PARENT_CODE
+			, DEPARTMENT_ACTIVATION, DEPARTMENT_DESCRIPTION)
+		values
+		(#{departmentCode}, #{departmentName}, 101, '1', #{departmentDescription})
+	</insert>
+	
+	<update id="updateDepartment" parameterType="department">
+		update department
+		set
+			DEPARTMENT_NAME	= #{departmentName},
+			DEPARTMENT_PARENT_CODE = #{departmentParentCode},
+			DEPARTMENT_ACTIVATION = #{departmentActivation},
+			DEPARTMENT_DESCRIPTION = #{departmentDescription}
+		where
+			DEPARTMENT_CODE = #{departmentCode}   
+	</update>
+	
+	<delete id="deleteDepartment">
+		delete from department where department_code = #{departmentCode}
+	</delete>
+</mapper>

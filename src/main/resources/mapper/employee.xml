@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.osf.sp.mapper.EmployeeMapper">
+	<select id="selectEmployeeList" resultType="emp">
+		select * from employee 
+	</select> 
+		
+	<select id="selectEmployeeByNo" resultType="emp" parameterType="emp">
+		select * from employee where employee_no=#{employeeNo}
+	</select>
+	
+	<insert id="insertEmployee" parameterType="emp">
+		insert into employee
+		(EMPLOYEE_NO ,EMPLOYEE_NAME ,EMPLOYEE_PASSWORD ,PERSONAL_CONTACT,
+		EXTENSION_NUMBER ,EMPLOYEE_EMAIL ,EMPLOYEE_BIRTH ,Final_Education_State ,Final_Education ,
+		Employee_Bank_Name , Employee_Bank_Code ,Date_Of_Entry, EMPLOYEE_USAGE_STATUS, EMPLOYEE_PATH)
+		values
+		(#{employeeNo},#{employeeName},#{employeePassword},#{personalContact},
+		#{extensionNumber},#{employeeEmail},#{employeeBirth},#{finalEducationState},
+		#{finalEducation},#{employeeBankName},#{employeeBankCode},#{dateOfEntry}, 1, #{employeePath})
+	</insert>
+	
+	<update id="updateEmployee" parameterType="emp">
+		update employee
+		set
+			EMPLOYEE_NAME = #{employeeName},
+			EMPLOYEE_PASSWORD = #{employeePassword},
+			PERSONAL_CONTACT = #{personalContact},
+			EXTENSION_NUMBER = #{extensionNumber},
+			EMPLOYEE_EMAIL = #{employeeEmail},
+			EMPLOYEE_BIRTH = #{employeeBirth},
+			Final_Education_State = #{finalEducationState},
+			Final_Education = #{finalEducation},
+			Employee_Bank_Name = #{employeeBankName},
+			Employee_Bank_Code = #{employeeBankCode},
+			Date_Of_Entry = #{dateOfEntry},
+			Date_Of_Departure = #{dateOfDeparture},
+			EMPLOYEE_USAGE_STATUS = #{employeeUsageStatus}			
+		where
+			EMPLOYEE_NO = #{employeeNo}
+	</update>
+	
+	<update id="updateEmployeeFile">
+		update employee
+		set
+			EMPLOYEE_PATH = #{employeePath}
+		where
+			EMPLOYEE_NO = #{employeeNo}
+	</update>
+	
+	<delete id="deleteEmployee">
+		delete from employee where EMPLOYEE_NO = #{employeeNo}
+	</delete>
+</mapper>

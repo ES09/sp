@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.osf.sp.mapper.UserInfoMapper">
+	
+	<insert id="insertUserInfo">
+		insert into user_info(ui_no,ui_id,ui_pwd,ui_age)
+		values(seq_ui_no.nextval,#{uiId},#{uiPwd},#{uiAge})
+	</insert>
+	
+	<select id="selectUserInfoByLogin" resultType="ui" parameterType="ui">
+		select * from user_info  
+		where ui_id=#{uiId} and ui_pwd=#{uiPwd}
+	</select>
+	
+	<select id="selectUserIofoList" resultType="ui">
+		select * from
+		user_info
+		order by ui_no
+	</select>
+	
+	<select id="selectUserIofo" resultType="ui" parameterType="ui">
+		select * from user_info
+		<where>
+			<if test="uiNo!=null">
+				ui_no= #{uiNo}
+			</if>
+			<if test="uiId!=null">
+				ui_id= #{uiId}
+			</if>
+			<if test="uiAge!=null">
+				ui_Age= #{uiAge}
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteUserIofo" parameterType="ui">
+		delete from user_info
+		where ui_no=#{uiNo}
+	</delete>
+	
+	<update id="updateUserInfo" parameterType="ui">
+		update User_info
+		<set>
+			<if test="uiId!=null">
+				ui_id= #{uiId},
+			</if>
+			<if test="uiPwd!=null">
+				ui_pwd= #{uiPwd},
+			</if>
+			<if test="uiAge!=null">
+				ui_Age= #{uiAge},
+			</if>
+		</set>
+		<where>
+			ui_no= #{uiNo}
+		</where>
+	</update>
+</mapper>
